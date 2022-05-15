@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body class="bg-light">
+<div id="app">
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+                <h2>Gold Price Calculator</h2>
+            </div>
+
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 order-md-last">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-primary">Result</span>
+<!--                        <span class="badge bg-primary rounded-pill">3</span>-->
+                    </h4>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">BlackMarket Dollar Price</h6>
+                                <small class="text-muted">Calculated from 21 Price</small>
+                            </div>
+                            <span class="text-primary text-center">{{ BlackMarketDollarPrice }} £ </span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div class="col-4">
+                                <h6 class="my-0">24 Price</h6>
+                                <small class="text-success">Diff ( {{ MarketDollarPrice > 0 ?(price24.current - price24.market).toFixed(0) : '-' }} £ )</small>
+                            </div>
+                            <div class="text-muted col-8">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="text-center">dollar</div>
+                                        <div class="text-center"> {{ price24.dollar }}$</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center">current</div>
+                                        <div class="text-center">{{ MarketDollarPrice > 0 ? price24.current : '-' }}£</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center text-success">market</div>
+                                        <div class="text-center text-danger">{{ price24.market }}£</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div class="col-4">
+                                <h6 class="my-0">21 Price</h6>
+                                <small class="text-success">Diff ( {{ MarketDollarPrice > 0 ?(price21.current - price21.market).toFixed(0) : '-' }} £ )</small>
+                            </div>
+                            <div class="text-muted col-8">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="text-center">dollar</div>
+                                        <div class="text-center"> {{ price21.dollar }}$</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center">current</div>
+                                        <div class="text-center">{{ MarketDollarPrice > 0 ? price21.current : '-' }}£</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center text-success">market</div>
+                                        <div class="text-center text-danger">{{ price21.market }}£</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div class="col-4">
+                                <h6 class="my-0">18 Price</h6>
+                                <small class="text-success">Diff ( {{ MarketDollarPrice > 0 ?(price18.current - price18.market).toFixed(0) : '-' }} £ )</small>
+                            </div>
+                            <div class="text-muted col-8">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="text-center">dollar</div>
+                                        <div class="text-center"> {{ price18.dollar }}$</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center">current</div>
+                                        <div class="text-center">{{ MarketDollarPrice > 0 ? price18.current : '-' }}£</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center text-success">market</div>
+                                        <div class="text-center text-danger">{{ price18.market }}£</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <h4 class="mb-3">Enter Below Data</h4>
+                    <form class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">Once Price ( USD )</label>
+                                <input type="text" class="form-control" id="firstName" v-model="ouncePrice" required autocomplete="off">
+                                <div class="invalid-feedback">
+                                    Valid Once Price ( USD ) is required.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">21 Gold Price £</label>
+                                <input type="text" class="form-control" id="lastName" v-model="egp21price" required autocomplete="off">
+                                <div class="invalid-feedback">
+                                    Valid 21 Price £ is required.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Current Egp USD Price £</label>
+                                <input type="text" class="form-control" id="MarketDollarPrice" v-model="MarketDollarPrice" required autocomplete="off">
+                                <div class="invalid-feedback">
+                                    Valid 21 Price £ is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">&copy; 2021–2022 Mostafa Mohamed</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Whatsapp</a></li>
+                <li class="list-inline-item"><a href="#">Facebook</a></li>
+                <li class="list-inline-item"><a href="#">Phone</a></li>
+            </ul>
+        </footer>
+    </div>
+</div>
+</body>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script>
+    const { createApp } = Vue
+
+    createApp({
+        data() {
+            return {
+                ouncePrice: '',
+                egp21price: '',
+                BlackMarketDollarPrice: '-',
+                MarketDollarPrice: '',
+                price24: {dollar:0, current:0, market:0},
+                price21: {dollar:0, current:0, market:0},
+                price18: {dollar:0, current:0, market:0},
+            }
+        },
+        watch:{
+            ouncePrice(price) {
+                if(parseFloat(price)){
+                    this.calculate()
+                } else { this.resetOuncePrice() }
+            },
+            egp21price(price) {
+                if(parseFloat(price)){
+                    this.calculate()
+                } else { this.resetEgp21price() }
+            },
+            MarketDollarPrice(price) {
+                if(parseFloat(price)){
+                    this.calculate()
+                } else { this.resetMarketDollarPrice() }
+            }
+        },
+        methods: {
+            resetOuncePrice() {this.ouncePrice = 0},
+            resetEgp21price() {this.egp21price = 0},
+            resetMarketDollarPrice() {this.MarketDollarPrice = 0},
+            async getEgpUsdPrice(){
+                try {
+                    const res = await fetch('https://api.wsj.net/api/dylan/quotes/v2/comp/quoteByDialect?dialect=official&needed=CompositeTrading|BluegrassChannels&MaxInstrumentMatches=1&accept=application/json&EntitlementToken=cecc4267a0194af89ca343805a3e57af&ckey=cecc4267a0&dialects=Charting&id=Currency-US-USDEGP%2CStock-US-EGP%2CIndex-US-DXY')
+                    this.MarketDollarPrice = await (res.json()).InstrumentResponses[0].Matches[0].CompositeTrading.High.Value
+                    console.log('test')
+                } catch (e) {
+                    console.log(e)
+                    this.MarketDollarPrice = '-£'
+                }
+            },
+            calculate() {
+                oncePrice = parseFloat(this.ouncePrice)
+                egpPrice21 = parseFloat(this.egp21price)
+                if(oncePrice > 0 && egpPrice21 > 0) {
+                    this.price24 = {dollar:0, current:0, market:0}
+                    this.price21 = {dollar:0, current:0, market:0}
+                    this.price18 = {dollar:0, current:0, market:0}
+
+                    this.BlackMarketDollarPrice = ( egpPrice21 / (oncePrice / 35.54 ) ).toFixed(2)
+
+                    this.price24.dollar = (oncePrice / 31.1035).toFixed(2)
+                    this.price24.current = (this.price24.dollar * this.MarketDollarPrice).toFixed(0)
+                    this.price24.market = (this.price24.dollar * this.BlackMarketDollarPrice).toFixed(0)
+
+                    this.price21.dollar = (oncePrice / 35.54685).toFixed(2)
+                    this.price21.current = (this.price21.dollar * this.MarketDollarPrice).toFixed(0)
+                    this.price21.market = (this.price21.dollar * this.BlackMarketDollarPrice).toFixed(0)
+
+                    this.price18.dollar = (oncePrice / 41.47133).toFixed(2)
+                    this.price18.current = (this.price18.dollar * this.MarketDollarPrice).toFixed(0)
+                    this.price18.market = (this.price18.dollar * this.BlackMarketDollarPrice).toFixed(0)
+                } else {
+                    console.log("Please enter all needed data")
+                }
+            }
+        },
+        mounted() {
+
+        }
+
+    }).mount('#app')
+</script>
+</html>
